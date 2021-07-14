@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "_id": "fasfdasfasdffff541515",
+      "firstName": "Joe",
+      "lastName": "Firpo",
+      "email": "jf@gmail.com",
+      "address": "LA",
+      "active": true
+    }
+  ],
+  "products": [
+    {
+      "_id": "fasfdasfasdffff541515",
+      "name": "Joe",
+      "description": "Firpo",
+      "price": 100,
+      "active": true
+    }
+  ],
+  "orders": [
+    {
+      "_id": "fasfdasfasdffff541515",
+      "customer": "fasfdasfasdffff541515",
+      "products": [
+        "fasfdasfasdffff541515"
+      ],
+      "note": "jf@gmail.com"
+    }
+  ]
+}
