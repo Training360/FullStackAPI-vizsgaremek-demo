@@ -7,6 +7,8 @@ export interface ITableColumn {
   hidden?: boolean;
   outputTransform?: any;
   htmlOutput?: any;
+  pipes?: any[];
+  pipeArgs?: [any[]];
 }
 
 @Injectable({
@@ -29,7 +31,7 @@ export class ConfigService {
     {key: "_id", title: "#"},
     {key: "name", title: "Name"},
     {key: "description", title: "Description"},
-    {key: "price", title: "Price", outputTransform: (v: number) => `${v} Ft`},
+    {key: "price", title: "Price", pipes: [new CurrencyPipe('hu-HU')], pipeArgs: [['HUF', 'symbol', '3.0']]},
     {key: "active", title: "Active", htmlOutput: ConfigService.activeOrInactiveSign},
   ];
 

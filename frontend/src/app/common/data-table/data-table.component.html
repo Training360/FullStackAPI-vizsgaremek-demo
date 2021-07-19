@@ -16,14 +16,12 @@
       <tbody>
         <tr *ngFor="let row of list$ | async">
           <td *ngFor="let col of tableColumns">
-            <span *ngIf="!col.outputTransform && !col.htmlOutput">
-              {{ row[col.key] }}
+            <span *ngIf="!col.htmlOutput; else elseBlock">
+              {{ row[col.key] | xPipe:col.pipes:col.pipeArgs }}
             </span>
-            <span *ngIf="col.outputTransform">
-              {{ col.outputTransform(row[col.key]) }}
-            </span>
-            <span *ngIf="col.htmlOutput" [innerHTML]="col.htmlOutput(row[col.key])">
-            </span>
+            <ng-template #elseBlock>
+              <span [innerHTML]="col.htmlOutput(row[col.key])"></span>
+            </ng-template>
           </td>
         </tr>
       </tbody>
