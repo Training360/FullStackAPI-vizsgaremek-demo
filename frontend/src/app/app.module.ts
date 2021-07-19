@@ -11,6 +11,7 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { UsersComponent } from './page/users/users.component';
 import { ProductsComponent } from './page/products/products.component';
 import { OrdersComponent } from './page/orders/orders.component';
+import { DataTableComponent } from './common/data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { OrdersComponent } from './page/orders/orders.component';
     DashboardComponent,
     UsersComponent,
     ProductsComponent,
-    OrdersComponent
+    OrdersComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,

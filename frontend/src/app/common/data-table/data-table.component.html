@@ -1,0 +1,20 @@
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i> List of Users </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th *ngFor="let col of tableColumns"> {{ col.title }} </th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th *ngFor="let col of tableColumns"> {{ col.title }} </th>
+        </tr>
+      </tfoot>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
