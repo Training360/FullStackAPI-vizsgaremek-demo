@@ -17,6 +17,8 @@ export class XPipePipe implements PipeTransform {
       return value;
     }
 
+    console.log('xpipe is running');
+
     let output = value;
     for (let i = 0; i < pipes.length; i++) {
       const args = pipeArgs ? pipeArgs[i] || [] : [];

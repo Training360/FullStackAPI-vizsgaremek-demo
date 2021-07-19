@@ -46,6 +46,7 @@ export class ConfigService {
   constructor() { }
 
   static activeOrInactiveSign(v: boolean): string {
+    console.log(`fn is running: ${v}`);
     const icon: string = v ? 'fa-check' : 'fa-ban';
     return `<i class="fas ${icon}"></i>`;
   }
