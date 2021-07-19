@@ -15,7 +15,7 @@
       "name": "Joe",
       "description": "Firpo",
       "price": 100,
-      "active": true
+      "active": false
     }
   ],
   "orders": [

@@ -1,9 +1,12 @@
+import { CurrencyPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 export interface ITableColumn {
   title: string;
   key: string;
   hidden?: boolean;
+  outputTransform?: any;
+  htmlOutput?: any;
 }
 
 @Injectable({
@@ -19,15 +22,15 @@ export class ConfigService {
     {key: "lastName", title: "Last Name"},
     {key: "email", title: "Email"},
     {key: "address", title: "Address"},
-    {key: "active", title: "Active"},
+    {key: "active", title: "Active", htmlOutput: ConfigService.activeOrInactiveSign},
   ];
 
   productColumns: ITableColumn[] = [
     {key: "_id", title: "#"},
     {key: "name", title: "Name"},
     {key: "description", title: "Description"},
-    {key: "price", title: "Price"},
-    {key: "active", title: "Active"},
+    {key: "price", title: "Price", outputTransform: (v: number) => `${v} Ft`},
+    {key: "active", title: "Active", htmlOutput: ConfigService.activeOrInactiveSign},
   ];
 
   orderColumns: ITableColumn[] = [
@@ -39,4 +42,9 @@ export class ConfigService {
   ];
 
   constructor() { }
+
+  static activeOrInactiveSign(v: boolean): string {
+    const icon: string = v ? 'fa-check' : 'fa-ban';
+    return `<i class="fas ${icon}"></i>`;
+  }
 }
