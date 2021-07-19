@@ -8,7 +8,7 @@ export interface ITableColumn {
   outputTransform?: any;
   htmlOutput?: any;
   pipes?: any[];
-  pipeArgs?: [any[]];
+  pipeArgs?: any[][];
 }
 
 @Injectable({

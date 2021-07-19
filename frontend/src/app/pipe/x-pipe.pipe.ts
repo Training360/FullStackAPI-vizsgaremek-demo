@@ -11,7 +11,7 @@ export class XPipePipe implements PipeTransform {
   transform(
     value: unknown,
     pipes: PipeTransform[] | undefined,
-    pipeArgs: [any[]] | undefined
+    pipeArgs: any[][] | undefined
   ): unknown {
     if (!Array.isArray(pipes)) {
       return value;
