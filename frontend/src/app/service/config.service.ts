@@ -1,5 +1,6 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, SlicePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { get } from 'lodash';
 
 export interface ITableColumn {
   title: string;
@@ -23,7 +24,10 @@ export class ConfigService {
     {key: "firstName", title: "First Name"},
     {key: "lastName", title: "Last Name"},
     {key: "email", title: "Email"},
-    {key: "address", title: "Address"},
+    {key: "address", title: "Address",
+      pipes: [ConfigService.getSubProperty],
+      pipeArgs: [['country', 'city', 'street']]
+    },
     {key: "active", title: "Active", htmlOutput: ConfigService.activeOrInactiveSign},
   ];
 
@@ -37,10 +41,18 @@ export class ConfigService {
 
   orderColumns: ITableColumn[] = [
     {key: "_id", title: "#"},
-    {key: "customer", title: "Customer"},
+    {
+      key: "user",
+      title: "User",
+      pipes: [ConfigService.getSubProperty],
+      pipeArgs: [['firstName', 'lastName']]
+    },
     {key: "products", title: "Products"},
-    {key: "time", title: "Time"},
-    {key: "note", title: "Note"},
+    {key: "time", title: "Time", pipes: [ConfigService.sqlDate]},
+    {key: "note", title: "Note",
+      pipes: [ConfigService.curveLongString],
+      pipeArgs: [[0, 15]]
+    },
   ];
 
   constructor() { }
@@ -50,4 +62,30 @@ export class ConfigService {
     const icon: string = v ? 'fa-check' : 'fa-ban';
     return `<i class="fas ${icon}"></i>`;
   }
+
+  // row.customer.name => (row, 'customer.name')
+  static getSubProperty(obj: any, ...keys: string[]): string | number | boolean | undefined {
+    return keys.map( key => get(obj, key) ).join(' ');
+  }
+
+  static sqlDate(jsTime: number): string | number | boolean | undefined {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric'
+    };
+    return Intl.DateTimeFormat('hu', options).format(jsTime);
+  }
+
+  static curveLongString(
+    data: string,
+    start: number,
+    end: number,
+    curve: string = '...'
+  ): string {
+    return data.slice(start, end) + curve;
+  }
+
 }

@@ -5,7 +5,12 @@
       "firstName": "Joe",
       "lastName": "Firpo",
       "email": "jf@gmail.com",
-      "address": "LA",
+      "address": {
+        "country": "USA",
+        "state": "CA",
+        "city": "LA",
+        "street": "Sunset Avenue 33."
+      },
       "active": true
     }
   ],
@@ -35,11 +40,12 @@
   "orders": [
     {
       "_id": "fasfdasfasdffff541515",
-      "customer": "fasfdasfasdffff541515",
+      "userId": "fasfdasfasdffff541515",
       "products": [
         "fasfdasfasdffff541515"
       ],
-      "note": "jf@gmail.com"
+      "time": 1626699947303,
+      "note": "I am old, please ring for a long time."
     }
   ]
 }
