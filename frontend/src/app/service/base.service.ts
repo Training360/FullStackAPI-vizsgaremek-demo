@@ -16,23 +16,42 @@ export class BaseService<T extends {active?: boolean, _id?: string, price?: numb
   ) { }
 
   getAll(): Observable<T[]> {
-    return new Observable<T[]>( observer => {
-      let currentData: T[] = [];
-      this.http.get<T[]>(`${this.config.apiUrl}${this.entity}`).subscribe(
-        data => {
-          currentData = data;
-          observer.next(data);
-        }
-      );
+    return this.http.get<T[]>(`${this.config.apiUrl}${this.entity}`);
+    // return new Observable<T[]>( observer => {
+    //   let currentData: T[] = [];
+    //   this.http.get<T[]>(`${this.config.apiUrl}${this.entity}`).subscribe(
+    //     data => {
+    //       currentData = data;
+    //       observer.next(data);
+    //     }
+    //   );
 
-      interval(5000).subscribe(
-        num => currentData[0].price = Math.round(Math.random() * 10000)
-      );
-    });
+    //   interval(5000).subscribe(
+    //     num => currentData[0].price = Math.round(Math.random() * 10000)
+    //   );
+    // });
   }
 
   get(_id: string): Observable<T> {
     return this.http.get<T>(`${this.config.apiUrl}${this.entity}/${_id}`);
+  }
+
+  create(entity: T): Observable<T> {
+    return this.http.post<T>(
+      `${this.config.apiUrl}${this.entity}`,
+      entity
+    );
+  }
+
+  update(entity: T): Observable<T> {
+    return this.http.patch<T>(
+      `${this.config.apiUrl}${this.entity}/${entity._id}`,
+      entity
+    );
+  }
+
+  remove(_id: string): Observable<T> {
+    return this.http.delete<T>(`${this.config.apiUrl}${this.entity}/${_id}`);
   }
 
 }
