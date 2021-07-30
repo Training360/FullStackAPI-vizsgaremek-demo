@@ -31,7 +31,7 @@
   </form>
   <!-- Navbar-->
   <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-    <li class="nav-item dropdown">
+    <li *ngIf="(user$ | async)" class="nav-item dropdown">
       <a
         class="nav-link dropdown-toggle"
         id="navbarDropdown"
@@ -57,9 +57,12 @@
         </li>
         <li><a
             class="dropdown-item"
-            href="#!"
+            (click)="onLogout()"
           >Logout</a></li>
       </ul>
     </li>
+    <button routerLink="/login" *ngIf="!(user$ | async)" class="btn btn-success">
+      <i class="fas fa-sign-in-alt"></i>
+    </button>
   </ul>
 </nav>

@@ -11,7 +11,8 @@
         "city": "LA",
         "street": "Sunset Avenue 33."
       },
-      "active": true
+      "active": true,
+      "password": "$2a$10$gM4bsxl5NDA6O3X330UmDOWZWCixRWFR36gNg5yLXf5c6cO0FGq9e"
     }
   ],
   "products": [
