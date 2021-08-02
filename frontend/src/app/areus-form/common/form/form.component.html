@@ -4,7 +4,9 @@
     [formGroup]="formGroup"
     [field]="field"
   ></app-form-field>
-  <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary">
-    Send
-  </button>
+  <div class="d-grid">
+    <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary mt-3 mt-3">
+      Send
+    </button>
+  </div>
 </form>
