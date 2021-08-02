@@ -1,0 +1,6 @@
+<h3>Edit Product</h3>
+<div class="row">
+  <div class="col-6 offset-3">
+    <app-areus-form *ngIf="showForm" [fieldList]="fields" (submitted)="onSave($event)"></app-areus-form>
+  </div>
+</div>

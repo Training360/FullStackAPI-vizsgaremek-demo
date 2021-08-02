@@ -2,6 +2,7 @@
   <h1 class="mt-4">Products</h1>
   <app-data-table
     [tableColumns]="tableColumns"
-    [list$]="list$">
+    [list$]="list$"
+    (selectOne)="onSelectOne($event)">
   </app-data-table>
 </div>

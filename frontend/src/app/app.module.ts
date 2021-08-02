@@ -7,6 +7,8 @@ import localeHu from '@angular/common/locales/hu';
 
 registerLocaleData(localeHu);
 
+import { AreusFormModule } from './areus-form/areus-form.module';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './common/navigation/navigation.component';
@@ -18,6 +20,7 @@ import { OrdersComponent } from './page/orders/orders.component';
 import { DataTableComponent } from './common/data-table/data-table.component';
 import { XPipePipe } from './pipe/x-pipe.pipe';
 import { LoginComponent } from './page/login/login.component';
+import { ProductEditComponent } from './page/product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +33,15 @@ import { LoginComponent } from './page/login/login.component';
     OrdersComponent,
     DataTableComponent,
     XPipePipe,
-    LoginComponent
+    LoginComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    AreusFormModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'hu-HU'}

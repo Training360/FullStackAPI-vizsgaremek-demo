@@ -1,0 +1,30 @@
+<div [formGroup]="formGroup" class="form-group">
+  <label [attr.for]="field.key">{{ field.label }}</label>
+  <div [ngSwitch]="field.controlType">
+    <input
+      *ngSwitchCase="'input'"
+      [type]="field.type"
+      [formControlName]="field.key"
+      [id]="field.key"
+      class="form-control">
+    <select
+      *ngSwitchCase="'select'"
+      [formControlName]="field.key"
+      [id]="field.key"
+      class="form-control">
+        <option *ngFor="let option of field.options" [value]="option.value">
+          {{ option.label }}
+        </option>
+    </select>
+    <textarea
+      *ngSwitchCase="'textarea'"
+      [formControlName]="field.key"
+      [id]="field.key"
+      class="form-control"
+      cols="30" rows="10">
+    </textarea>
+    <div *ngIf="!isValid" class="error-message">
+      {{ field.errorMessage || 'Invalid value.' }}
+    </div>
+  </div>
+</div>

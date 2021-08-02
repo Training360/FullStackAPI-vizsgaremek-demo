@@ -6,11 +6,13 @@
       <thead>
         <tr>
           <th *ngFor="let col of tableColumns"> {{ col.title }} </th>
+          <th></th>
         </tr>
       </thead>
       <tfoot>
         <tr>
           <th *ngFor="let col of tableColumns"> {{ col.title }} </th>
+          <th></th>
         </tr>
       </tfoot>
       <tbody>
@@ -22,6 +24,13 @@
             <ng-template #elseBlock>
               <span [innerHTML]="col.htmlOutput(row[col.key])"></span>
             </ng-template>
+          </td>
+          <td>
+            <div class="btn-group">
+              <button (click)="onSelect(row)" class="btn btn-info">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
