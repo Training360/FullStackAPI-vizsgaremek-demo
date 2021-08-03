@@ -12,6 +12,7 @@ export class DataTableComponent<T extends {[propname: string]: any}> implements 
   @Input() tableColumns: ITableColumn[] = [];
   @Input() list$: Observable<T[]> | null = null;
 
+  // 1.
   @Output() selectOne: EventEmitter<T> = new EventEmitter<T>();
 
   constructor(
@@ -21,6 +22,7 @@ export class DataTableComponent<T extends {[propname: string]: any}> implements 
   ngOnInit(): void {
   }
 
+  // 2.
   onSelect(entity: T): void {
     this.selectOne.emit(entity);
   }
