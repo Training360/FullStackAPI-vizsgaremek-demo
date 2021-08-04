@@ -1,5 +1,6 @@
 const express = require("express");
-const controller = require('./order.controller');
+const orderModel = require('../../models/order.model');
+const controller = require('../base/controller')(orderModel, ['user', 'products']);
 
 const router = express.Router();
 

@@ -1,5 +1,6 @@
 const express = require("express");
-const controller = require('./person.controller');
+const productModel = require('../../models/product.model');
+const controller = require('../base/controller')(productModel);
 
 const router = express.Router();
 
@@ -19,6 +20,9 @@ router.get('/:id', (req, res, next) => {
 
 // update
 router.put('/:id', (req, res, next) => {
+  return controller.update(req, res, next);
+});
+router.patch('/:id', (req, res, next) => {
   return controller.update(req, res, next);
 });
 

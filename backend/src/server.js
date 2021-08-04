@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const mongoose = require('mongoose');
+const cors = require('./config/cors');
 mongoose.Promise = global.Promise;
 
 // Authenctication.
@@ -22,13 +23,20 @@ mongoose
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
-    .then( () => logger.info('MongoDB connection has been established successfully.'))
-    .catch( err => {
+    .then(() => logger.info('MongoDB connection has been established successfully.'))
+    .catch(err => {
         logger.error(err);
         process.exit();
     });
 
-app.use(morgan('combined', {stream: logger.stream}));
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST, PUT, DELETE, PATCH");
+//     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+//     next();
+// });
+app.use(cors());
+app.use(morgan('combined', { stream: logger.stream }));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
@@ -39,10 +47,12 @@ app.post('/logout', authHandler.logout);
 
 app.use('/person', authenticateJwt, require('./controllers/person/person.routes'));
 app.use('/post', authenticateJwt, adminOnly, require('./controllers/post/post.routes'));
+app.use('/users', authenticateJwt, adminOnly, require('./controllers/user/user.routes'));
+app.use('/products', authenticateJwt, require('./controllers/product/product.routes'));
 app.use('/orders', authenticateJwt, adminOnly, require('./controllers/order/order.routes'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use( (err, req, res, next) => {
+app.use((err, req, res, next) => {
     res.status(err.statusCode);
     res.json({
         hasError: true,

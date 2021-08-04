@@ -5,14 +5,28 @@ const baseService = require('../base/service');
 const orderModel = require('../../models/order.model');
 const orderService = baseService(orderModel, ['user', 'products']);
 
+const checkModel = (model, body, next) => {
+    const validationErrors = new model(body).validateSync();
+    if (validationErrors) {
+        next(
+            new createError.BadRequest(
+                JSON.stringify({
+                    message: 'Scmema validation error',
+                    error: validationErrors
+                })
+            )
+        );
+        return false;
+    }
+    return true;
+};
+
 // Create a new person.
 exports.create = (req, res, next) => {
-    const { user, products, note } = req.body;
-    if (!user) {
-        return next(
-            new createError.BadRequest("Missing properties!")
-        );
+    if (!checkModel(orderModel, req.body, next)) {
+        return;
     }
+    const { user, products, note } = req.body;
 
     const newOrder = {
         user, products: products || [], note: note || ''
@@ -45,11 +59,8 @@ exports.findOne = (req, res, next) => {
 
 exports.update = (req, res, next) => {
     const id = req.params.id;
-    const { user, products, note } = req.body;
-    if (!user) {
-        return next(
-            new createError.BadRequest("Missing properties!")
-        );
+    if (!checkModel(orderModel, req.body, next)) {
+        return;
     }
 
     return orderService.update(req.params.id, req.body)

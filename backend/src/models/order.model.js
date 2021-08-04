@@ -10,7 +10,10 @@ const OrderSchema = mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Product',
     },
-    time: Date,
+    time: {
+        type: Date,
+        default: new Date(),
+    },
     note: String,
 }, {
     timestamps: true

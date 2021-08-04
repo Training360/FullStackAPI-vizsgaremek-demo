@@ -1,6 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeHu from '@angular/common/locales/hu';
@@ -21,6 +21,7 @@ import { DataTableComponent } from './common/data-table/data-table.component';
 import { XPipePipe } from './pipe/x-pipe.pipe';
 import { LoginComponent } from './page/login/login.component';
 import { ProductEditComponent } from './page/product-edit/product-edit.component';
+import { JwtInterceptorInterceptor } from './service/jwt-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,12 @@ import { ProductEditComponent } from './page/product-edit/product-edit.component
     AreusFormModule,
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'hu-HU'}
+    { provide: LOCALE_ID, useValue: 'hu-HU'},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })
