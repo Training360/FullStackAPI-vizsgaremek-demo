@@ -9,6 +9,7 @@ const YAML = require('yamljs');
 const mongoose = require('mongoose');
 const cors = require('./config/cors');
 mongoose.Promise = global.Promise;
+const fsp = require('fs').promises;
 
 // Authenctication.
 const authenticateJwt = require('./auth/authenticate');
@@ -51,6 +52,9 @@ app.use('/users', authenticateJwt, adminOnly, require('./controllers/user/user.r
 app.use('/products', authenticateJwt, require('./controllers/product/product.routes'));
 app.use('/orders', authenticateJwt, adminOnly, require('./controllers/order/order.routes'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use('/', async (req, res, next) => {
+//     const index = fsp.readFile( `.`)
+// });
 
 app.use((err, req, res, next) => {
     res.status(err.statusCode);
