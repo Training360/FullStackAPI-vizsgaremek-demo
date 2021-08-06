@@ -114,6 +114,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /cars: 
+    get:
+      description: Returns a list of cars
+      responses:
+        '200':
+          description: List of cars returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   securitySchemes:
     bearerAuth:            # arbitrary name for the security scheme
@@ -138,6 +156,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Post'
+    Car:
+      type: object
+      required:
+        - model
+        - year
+        - maker
+      properties:
+        model:
+          type: string
+        year:
+          type: number
+        maker:
+          type: string
     Post:
       type: object
       required:

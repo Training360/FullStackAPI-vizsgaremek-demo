@@ -51,10 +51,8 @@ app.use('/post', authenticateJwt, adminOnly, require('./controllers/post/post.ro
 app.use('/users', authenticateJwt, adminOnly, require('./controllers/user/user.routes'));
 app.use('/products', authenticateJwt, require('./controllers/product/product.routes'));
 app.use('/orders', authenticateJwt, adminOnly, require('./controllers/order/order.routes'));
+app.use('/cars', require('./controllers/car/routes'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-// app.use('/', async (req, res, next) => {
-//     const index = fsp.readFile( `.`)
-// });
 
 app.use((err, req, res, next) => {
     res.status(err.statusCode);

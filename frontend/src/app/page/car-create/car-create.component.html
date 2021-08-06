@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-6 offset-3">
+    <form #carForm="ngForm" (ngSubmit)="onSave(carForm)">
+      <div class="form-group">
+        <label for="">Model</label>
+        <input class="form-control" type="text" name="model" [(ngModel)]="car.model">
+      </div>
+      <div class="form-group">
+        <label for="">Year</label>
+        <input class="form-control" type="number" name="year" [(ngModel)]="car.year">
+      </div>
+      <div class="form-group">
+        <label for="">Maker</label>
+        <input class="form-control" type="text" name="maker" [(ngModel)]="car.maker">
+      </div>
+      <div class="form-group">
+        <label for="">Price</label>
+        <input class="form-control" type="number" name="price" [(ngModel)]="car.price">
+      </div>
+
+      <button type="submit" [disabled]="carForm.invalid" class="btn btn-primary w-100 mt-3 mb-3">
+        Create a new Car
+      </button>
+    </form>
+  </div>
+</div>
