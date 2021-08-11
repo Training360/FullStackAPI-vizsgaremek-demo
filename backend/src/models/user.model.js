@@ -9,9 +9,14 @@ const UserSchema = mongoose.Schema({
     },
     address: String,
     active: Boolean,
+    role:  {
+        type: Number,
+        default: 0
+    }
 }, {
     timestamps: true
 });
+UserSchema.plugin(require('mongoose-bcrypt'));
 
 module.exports = mongoose.model('User', UserSchema);
 

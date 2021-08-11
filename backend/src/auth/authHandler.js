@@ -1,40 +1,40 @@
 const jwt = require('jsonwebtoken');
-
+const UserModel = require('../models/user.model');
 // Biztonságosabb megoldás, az adatbázis használata.
 // Példa: https://www.npmjs.com/package/mongoose-bcrypt
 
-const Users = [
-    {
-        email: 'admin',
-        password: 'admin_pw',
-        role: 'admin'
-    },
-    {
-        email: 'user',
-        password: 'user_pw',
-        role: 'user'
-    }
-];
+// (async () => {
+//     const admin = new UserModel({ name: 'Admin', email: 'admin@gmail.com', password: 'admin_pw' });
+//     const user = new UserModel({ name: 'User', email: 'user@gmail.com', password: 'user_pw' });
+//     await admin.save();
+//     await user.save();
+// })();
 
 const refreshTokens = [];
 
-module.exports.login = (req, res) => {
+module.exports.login = async (req, res) => {
     const { email, password } = req.body;
 
-    const user = Users.find(
-        u => u.email === email && u.password === password
-    );
+    try {
+        const user = await UserModel.findOne({email});
+        if (!user) {
+            throw new Error('User not found!');
+        }
 
-    if (user) {
+        const verified = await user.verifyPassword(password);
+        if (!verified) {
+            throw new Error('Incorrect Credentials!');
+        }
+
         const accessToken = jwt.sign({
-            username: user.username,
+            email: user.email,
             role: user.role
         }, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: process.env.TOKEN_EXPIRY
         });
 
         const refreshToken = jwt.sign({
-            username: user.username,
+            email: user.email,
             role: user.role
         }, process.env.REFRESH_TOKEN_SECRET);
         refreshTokens.push(refreshToken);
@@ -44,7 +44,8 @@ module.exports.login = (req, res) => {
             refreshToken,
             user
         });
-    } else {
+
+    } catch(e) {
         res.send('Username or password incorrect.');
     }
 
