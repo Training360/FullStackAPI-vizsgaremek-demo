@@ -8,7 +8,8 @@
     "test": "jest",
     "docker:build": "docker build -t nodejs-api-fejlesztes:latest .",
     "docker-compose:up": "docker-compose up",
-    "dev": "concurrently --kill-others \"docker-compose up\" \"node watcher.js\""
+    "dev": "concurrently --kill-others \"docker-compose up\" \"node watcher.js\"",
+    "build": "cd ../frontend && ng build && npx copyfiles -f ./dist/frontend/* ../backend/public && cd ../backend && docker-compose up"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
