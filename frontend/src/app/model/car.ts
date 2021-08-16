@@ -6,3 +6,5 @@ export class Car {
   price?: number = 0;
   active?: boolean = true;
 }
+
+// Car model.
