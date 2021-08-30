@@ -10,9 +10,14 @@ const PostSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    author: {
+    author: { // dslkjfélkdsjf455643653é4
+        // Ez a mező típusa. Ez egy másik dokumentum _id értékét tartalmazza, 
+        // a people kollekcióból.
         type: mongoose.Schema.Types.ObjectId,
+        // A másik mongoose model, ami az adott kolllekciót kezeli (Person)
         ref: 'Person',
+        // Kötelező. Nem tudok létrehozni postot, csak ha megadom a szerző 
+        // személy _id értékét.
         required: true
     }
 }, {
